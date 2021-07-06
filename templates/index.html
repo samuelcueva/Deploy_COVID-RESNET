@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Image send and paste</title>
+	<link rel="stylesheet" type="text/css" href="../static/index.css">
+	<script
+			  src="https://code.jquery.com/jquery-3.3.1.min.js"
+			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+			  crossorigin="anonymous"></script>
+	<script type="text/javascript" src="../static/index.js"></script>
+</head>
+<body>
+
+<form action="/predict" method="post" enctype="multipart/form-data">
+	<input id="imageinput" type="file" name="image" onchange="readUrl(this)">
+	 <br />
+	<img id="imgSalida" width="50%" height="50%" src="" />
+	<button type="submit" name="send" id = "sendbutton">Send</button>
+</form>
+{{prediction}}
+</body>
+</html>
+
+
