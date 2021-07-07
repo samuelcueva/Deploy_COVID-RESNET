@@ -5,9 +5,9 @@ import numpy as np
 
 IMAGE_SIZE=(256,256)
 PATHOLOGIES=['COVID-19','NORMAL','PNEUMONIA']
-path_img='images/image'
+path_img='images/image.jpg'
 # To load the serialized model
-#model=tf.keras.models.load_model('covid_resnet_model')
+model=tf.keras.models.load_model('covid_resnet_model')
 
 
 app=Flask(__name__)
@@ -27,12 +27,17 @@ def predict():
     prediction = PATHOLOGIES[np.argmax(output)]
     p=output[np.argmax(output)]*100
     print(output)
+    string_test='this is a test'
 
     return render_template('index.html',
                            prediction='The x-ray result is: {} with a {:.2f} % probability'.format(prediction,p))
-    #return request.files['image'].read()
+    #return
 
+@app.route('/test' ,methods=['POST'])
+def test_design():
+    request.files['image'].save(path_img)
 
+    return
 
 if __name__=='__main__':
     app.run(port=5000,debug=True)

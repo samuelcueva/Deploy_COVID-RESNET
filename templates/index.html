@@ -1,24 +1,39 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE html >
+<html lang="en-US">
 <head>
 	<title>Image send and paste</title>
 	<link rel="stylesheet" type="text/css" href="../static/index.css">
 	<script
-			  src="https://code.jquery.com/jquery-3.3.1.min.js"
-			  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-			  crossorigin="anonymous"></script>
+
+
+			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
+	</script>
 	<script type="text/javascript" src="../static/index.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
-
+<div class="container">
 <form action="/predict" method="post" enctype="multipart/form-data">
-	<input id="imageinput" type="file" name="image" onchange="readUrl(this)">
+	<input class="btn" id="imageinput" type="file" name="image" onchange="readUrl(this)" oninvalid="this.setCustomValidity('Texto personalizado')">
 	 <br />
 	<img id="imgSalida" width="50%" height="50%" src="" />
-	<button type="submit" name="send" id = "sendbutton">Send</button>
+	<br />
+	<button class="btn" type="submit" name="send" id = "sendbutton">Send</button>
 </form>
-{{prediction}}
+</div>
+<div class="container">
+	 <br />
+    <div class="result"><p>{{prediction}}</p></div>
+</div>
 </body>
+
+<script>
+$(document).ready(function(){
+  $("button").click(function(){
+    $("#pred").load({{prediction}});
+  });
+});
+</script>
 </html>
 
 
