@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,jsonify
 import tensorflow as tf
 from model import preprocess_image
 import numpy as np
@@ -27,9 +27,7 @@ def predict():
     prediction = PATHOLOGIES[np.argmax(output)]
     p = output[np.argmax(output)] * 100
 
-    return render_template('index.html',
-                           prediction='The x-ray result is: {} with a {:.2f} % probability'.format(
-                               prediction, p))
+    return jsonify({'prediction':prediction,'percentage':p})
     # return
 
 

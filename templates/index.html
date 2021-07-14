@@ -1,17 +1,15 @@
 <!DOCTYPE html >
 <html lang="en-US">
 <head>
-	<title>Image send and paste</title>
+	<title>COVID-19 detection</title>
 	<link rel="stylesheet" type="text/css" href="../static/index.css">
-	<script
-
-
-			  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js">
-	</script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<script>window.jQuery || document.write('<script src="{{url_for('static', filename='jquery.js') }}">\x3C/script>')</script>
 	<script type="text/javascript" src="../static/index.js"></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 </head>
 <body>
+	<h1>COVID-19 DETECTION BY CHEST X-RAY</h1>
 <div class="container">
 <form action="/predict" method="post" enctype="multipart/form-data">
 	<input class="btn" id="imageinput" type="file" name="image" onchange="readUrl(this)" oninvalid="this.setCustomValidity('Texto personalizado')">
@@ -21,19 +19,11 @@
 	<button class="btn" type="submit" name="send" id = "sendbutton">Send</button>
 </form>
 </div>
-<div class="container">
+<div class="container" >
 	 <br />
-    <div class="result"><p>{{prediction}}</p></div>
+    <div class="result" ><p id="div_result"></p></div>
 </div>
 </body>
-
-<script>
-$(document).ready(function(){
-  $("button").click(function(){
-    $("#pred").load({{prediction}});
-  });
-});
-</script>
 </html>
 
 

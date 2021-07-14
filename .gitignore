@@ -1,6 +1,6 @@
 images/
-covid_resnet_model/
+covid_resnet_model/ 
 resnet_images/
 weights_covidResnet/
-.idea/
-__pycache__/
+.idea/*
+__pycache__/*

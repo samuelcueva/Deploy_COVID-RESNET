@@ -23,6 +23,12 @@
  text-align: center;
 }
 
+h1{
+background-color: #3991A9;
+text-align: center;
+color: white;
+}
+
 .result{
     font-size: 38px;
     background-color: #3991A9;
