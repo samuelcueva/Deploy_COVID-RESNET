@@ -5,7 +5,7 @@ import numpy as np
 
 IMAGE_SIZE = (256, 256)
 PATHOLOGIES = ['COVID-19', 'NORMAL', 'PNEUMONIA']
-path_img = 'images/image.jpg'
+path_img = 'images/image'
 # To load the serialized model
 model = tf.keras.models.load_model('covid_resnet_model')
 
