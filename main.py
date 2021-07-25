@@ -3,7 +3,7 @@ import tensorflow as tf
 from model import preprocess_image
 import numpy as np
 import os
-from download_model import download
+from download_model import download,extract
 
 
 IMAGE_SIZE = (256, 256)
@@ -11,12 +11,15 @@ PATHOLOGIES = ['COVID-19', 'NORMAL', 'PNEUMONIA']
 path_img = 'images/image'
 
 # parameters for Google Cloud Storage API
-path_model = 'covid_resnet_model/'
+path_model = 'covid_resnet_model'
 bucket_name = os.environ.get('BUCKET_NAME')
-blob = 'covid_resnet_model/'
+blob = 'covid_resnet_model.zip'
+destination = 'model.zip'
 
 # to download the serialized model
-download(bucket_name,blob,path_model)
+download(bucket_name,blob,destination)
+# to extract the zip file
+extract(destination)
 # To load the serialized model
 model = tf.keras.models.load_model(path_model)
 
