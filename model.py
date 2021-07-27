@@ -1,7 +1,8 @@
+import os
 import tensorflow as tf
 
 path_weights = 'weights_covidResnet/cp-0030.ckpt'
-path_images = 'resnet_images'
+path_model = '../'
 
 
 def preprocess_image(path, image_size):
@@ -43,4 +44,4 @@ if __name__ == "__main__":
     covid_resnet.load_weights(path_weights)
 
     # Save the trained model
-    covid_resnet.save('covid_resnet_model')
+    covid_resnet.save(os.path.join(path_model,'covid_resnet_model.h5'))

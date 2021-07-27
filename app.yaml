@@ -4,6 +4,10 @@ default_expiration: "4d 5h"
 
 instance_class: F4_1G
 
+env_variables:
+  BUCKET_NAME: "test-proyect-319922.appspot.com"
+
+
 handlers:
 - url: /static
   static_dir: static

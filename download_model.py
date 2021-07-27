@@ -7,7 +7,7 @@ def download(bucket_name,source_blob_name,destination):
 
     # bucket_name = "your-bucket-name"
     # source_blob_name = "storage-object-name"
-    # destination_file_name = "local/path/to/file"
+    # destination = "local/path/to/file"
 
     storage_client = storage.Client()
 
@@ -23,7 +23,7 @@ def download(bucket_name,source_blob_name,destination):
     )
 
 
-def extract(file):
+def extract(file,destination):
     
     # opening the zip file in READ mode
     with ZipFile(file, 'r') as zip:
@@ -33,7 +33,7 @@ def extract(file):
   
         # extracting all the files
         print('Extracting all the files now...')
-        zip.extractall()
-        os.remove(file)
+        zip.extractall(destination)
+        #os.remove(file)
         print('Done!')
 
