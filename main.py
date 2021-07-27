@@ -13,7 +13,7 @@ path_img = 'images/image'
 # parameters for Google Cloud Storage API 
 bucket_name = os.environ.get('BUCKET_NAME')
 blob = 'weights_covid_resnet.zip'
-destination = 'weights'
+destination = '/tmp'
 download_to = os.path.join(destination,blob)
 path_weights = os.path.join(destination,'weights_covidResnet/cp-0030.ckpt')
 
