@@ -1,14 +1,80 @@
 from flask import Flask, render_template, request,jsonify
 import tensorflow as tf
-from model import preprocess_image,create_covidResnet
+
+from google.cloud import storage 
+from zipfile import ZipFile
+
 import numpy as np
 import os
-from download_model import download,extract
+
 
 
 IMAGE_SIZE = (256, 256)
 PATHOLOGIES = ['COVID-19', 'NORMAL', 'PNEUMONIA']
 path_img = 'images/image'
+
+def download(bucket_name,source_blob_name,destination):
+
+
+    # bucket_name = "your-bucket-name"
+    # source_blob_name = "storage-object-name"
+    # destination = "local/path/to/file"
+
+    storage_client = storage.Client()
+
+    bucket = storage_client.bucket(bucket_name)
+
+    blob = bucket.blob(source_blob_name)
+    blob.download_to_filename(destination)
+
+    print(
+        "Blob {} downloaded to {}.".format(
+            source_blob_name, destination
+        )
+    )
+
+def extract(file,destination):
+    
+    # opening the zip file in READ mode
+    with ZipFile(file, 'r') as zip:
+
+        # printing all the contents of the zip file
+        zip.printdir()
+  
+        # extracting all the files
+        print('Extracting all the files now...')
+        zip.extractall(destination)
+        #os.remove(file)
+        print('Done!')
+
+
+def preprocess_image(path, image_size):
+    raw_img = tf.keras.preprocessing.image.load_img(path)
+    img_array = tf.keras.preprocessing.image.img_to_array(raw_img)
+    img = tf.keras.preprocessing.image.smart_resize(img_array, image_size)
+    img = tf.expand_dims(img, 0)
+    return img
+
+
+def create_covidResnet(base_model):
+    """create top layers to customize ResNet50
+       to a network for Covid-19 detection"""
+
+    input = tf.keras.Input(shape=(256, 256, 3))
+    preprocess_input = tf.keras.applications.resnet.preprocess_input(input)
+    model_base = base_model(preprocess_input)
+    global_average_layer = tf.keras.layers.GlobalAveragePooling2D()(model_base)
+    drop_out_1 = tf.keras.layers.Dropout(0.4)(global_average_layer)
+    dense_layer = tf.keras.layers.Dense(4096, activation='relu')(drop_out_1)
+    drop_out_2 = tf.keras.layers.Dropout(0.4)(dense_layer)
+    output_model = tf.keras.layers.Dense(3, activation='softmax')(drop_out_2)
+
+    # create the model
+    model = tf.keras.models.Model(inputs=input, outputs=output_model)
+
+    return model
+
+
 
 # parameters for Google Cloud Storage API 
 bucket_name = os.environ.get('BUCKET_NAME')
