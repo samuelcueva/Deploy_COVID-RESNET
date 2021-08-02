@@ -10,9 +10,11 @@ manual_scaling:
   instances: 1
 resources:
   cpu: 4
-  memory_gb: 2
+  memory_gb: 4
   disk_size_gb: 10
 
+env_variables:
+  BUCKET_NAME: "test-proyect-319922.appspot.com"
 
 handlers:
 - url: /static
