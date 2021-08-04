@@ -39,7 +39,7 @@ def predict():
     output = model.predict(preprocess_image(path_img, IMAGE_SIZE))[0]
 
     prediction = PATHOLOGIES[np.argmax(output)]
-    p = np.around(output[np.argmax(output)] * 100, decimals=2)
+    p = np.around(output[np.argmax(output)] * 100, decimals=4)
 
     return jsonify({'prediction':prediction,'percentage':p})
     # return
